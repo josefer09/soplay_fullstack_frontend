@@ -11,15 +11,17 @@ const RutaProtegida = () => {
     }
     return (
       <>
+          <div class="md:flex min-h-screen md:align-top">
+
         <Header />
         {auth?._id ? (
-          <main className="container mx-auto mt-10">
+          <main className="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
             <Outlet />
           </main>
         ) : (
-          <Navigate to="/" />
+          <Navigate to="/scy" />
         )}
-        <Footer />
+        </div>
       </>
     );
   };

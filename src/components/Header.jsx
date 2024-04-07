@@ -5,21 +5,54 @@ const Header = () => {
     const {cerrarSesion} = useAuth();
   return (
     <>
-      <header className="py-10 bg-indigo-600">
-        <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
-          <h1 className="font-bold text-2xl text-indigo-200 text-center">
-            Administrador de Pacientes de {""}
-            <span className="text-white font-black">Veterinaria</span>
-          </h1>
-          <nav className="flex flex-col items-center lg:flex-row gap-4 mt-5 lg:mt-0">
-            <Link to={"/admin"} className="text-white text-sm uppercase font-bold">Pacientes</Link>
-            <Link to={"/admin/perfil"} className="text-white text-sm uppercase font-bold">Perfil</Link>
+      <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-blue-600 px-5 py-10 flex flex-col justify-between">
+        <div>
+          <h1
+          id="title"
+          class="uppercase text-white tracking-wide text-2xl font-bold mt-2"
+        >
+          SOPLAY
+        </h1>
+        <div id="welcome"></div>
+        <p class="mt-10 text-white">
+          Administra los empleados, cotizaciones y más.
+        </p>
+        <nav class="mt-8">
+          <a href="./user.html"
+          class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400">Usuarios</a>
+          <a
+            href="./administration.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Empleados</a
+          >
+          <a
 
-            <button className="text-white text-sm uppercase font-bold"
-            type="button" onClick={cerrarSesion}>Cerrar Sesión</button>
-          </nav>
+            href="./roles.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Servicios</a
+          >
+          <a
+            href="./specialtys.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Cotizaciones</a
+           >
+          <a
+            href="./patient.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Pagos</a
+          >
+        </nav>
         </div>
-      </header>
+
+        <div class="mt-auto flex items-center justify-start">
+          <button id="logOut" className="flex items-center justify-center w-30 h-30 px-2 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 hover:bg-blue-500 cursor-pointer focus:ring-blue-400" title="cerrar-sesion" type="button" onClick={cerrarSesion}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+            </svg>
+            <p class="pl-2 text-white">Cerrar Sesión</p>
+          </button>
+        </div>
+      </aside>
     </>
   );
 };
