@@ -41,7 +41,7 @@ const Login = () => {
       // Colocar la info del usuario en el state del auth
       setAuth(data);
       setAlerta({});
-      navigate("scy/admin");
+      navigate("admin");
       console.log('todo bien');
       return;
     } catch (error) {
