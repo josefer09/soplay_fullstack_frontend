@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, AdministrarEmpleados } from "./pages";
+import { Login, AdministrarEmpleados, Registrar, ConfirmarCuenta } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
 import AuthLayout from "./layouts/AuthLayout";
@@ -18,9 +18,11 @@ function App() {
           </Route>
           <Route path="/scy" element={<AuthLayout />}>
             <Route index element={<Login />} />
+            <Route path="/scy/confirmar/:id" element={<ConfirmarCuenta/>}/>
           </Route>
           <Route path="/scy/admin" element={<RutaProtegida />}>
             <Route index element={<AdministrarEmpleados />} />
+            <Route path="registrar" element={<Registrar/>}/>
           </Route>
         </Routes>
       </AuthProvider>
