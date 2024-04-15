@@ -1,8 +1,15 @@
 import useEmpleados from "../hooks/useEmpleados"
+import { useNavigate } from 'react-router-dom';
+
 const Empleado = ({empleado}) => {
 
     const {setEdicion, eliminarEmpleado} = useEmpleados();
     const {nombre, apellido, correo, telefono, rol, _id} = empleado;
+
+    const navigate = useNavigate();
+    const handleEditar = () => {
+        navigate(`editar-empleado/${empleado._id}`);
+      };
 
   return (
     <>
@@ -24,7 +31,7 @@ const Empleado = ({empleado}) => {
                   <p className="text-gray-600">{rol}</p>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                  <a href={`employee-edit.html?id=${_id}`} data-employee={_id} className="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
+                <button onClick={handleEditar} className="text-green-600 hover:text-green-900 mr-5 eliminar">Editar</button>
                     <button onClick={() => eliminarEmpleado(empleado)} className="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</button>
                 </td>
               </tr>

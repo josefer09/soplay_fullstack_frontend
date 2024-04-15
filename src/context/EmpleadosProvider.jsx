@@ -46,11 +46,19 @@ export const EmpleadosProvider = ({ children }) => {
     };
   
     try {
+      console.log('Validar que no exista ese correo en el provider', empleados);
+      console.log(empleado);
+      const correoExiste = empleados.some(empleadoActual => empleadoActual.correo === empleado.correo)
+      if(correoExiste) {
+        console.log('Existe el correo');
+        return false;
+      } else {
       const { data } = await clienteAxios.post("/empleados", empleado, config);
       const { createdAt, updatedAt, __v, ...empleadoAlmacenado } = data; // Crea un nuevo objeto sin los datos mencionados previamente
       setEmpleados([empleadoAlmacenado, ...empleados]);
       console.log("Empleado agregado:", empleadoAlmacenado);
-    } catch (error) {
+      return true;
+    }} catch (error) {
       console.log("Error al agregar empleado:", error.response.data.msg);
     }
   };

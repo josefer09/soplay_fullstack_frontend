@@ -6,7 +6,8 @@ import Alerta from "../components/Alerta";
 import useEmpleados from '../hooks/useEmpleados';
 
 
-const FormularioEmpleado = () => {
+const FormularioEmpleado = ({empleadoEditar}) => {
+
 
   const {guardarEmpleado, empleado} = useEmpleados();
 
@@ -59,20 +60,26 @@ const FormularioEmpleado = () => {
       };
       console.log(empleado);
 
-      guardarEmpleado(empleado);
-      setAlerta({msg: 'Empleado Registrado Viva', error: false});
+      const empleadoRegistrado = await guardarEmpleado(empleado);
+      console.log(empleadoRegistrado);
+      if(empleadoRegistrado) {
+        setAlerta({msg: 'Empleado Registrado Viva', error: false});
 
-      setTimeout(() => {
-        //setRedirect(true);
-    setAlerta({});
-    navigateTo('/scy/admin');
-      }, 3000);
-      // Usuario Registrado, limpiar form
-      // setNombre('');
-      // setEmail('');
-      // setPassword('');
-      // setConfirmarPassword('');
-    return;
+        setTimeout(() => {
+          //setRedirect(true);
+      setAlerta({});
+      navigateTo('/scy/admin');
+        }, 3000);
+        // Usuario Registrado, limpiar form
+        // setNombre('');
+        // setEmail('');
+        // setPassword('');
+        // setConfirmarPassword('');
+      return;
+      }
+      setAlerta({msg: 'Correo registrado, ingrese un correo valido', error: true});
+
+      
   };
 
   if(redirect) {

@@ -4,6 +4,7 @@ import {
   AdministrarEmpleados,
   Registrar,
   ConfirmarCuenta,
+  EditarEmpleado,
 } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
@@ -32,6 +33,7 @@ function App() {
               <Route index element={<AdministrarEmpleados />} />
               <Route path="registrar" element={<FormularioEmpleado />} />
               <Route path="usuarios/registrar" element={<Registrar />} />
+              <Route path="editar-empleado/:id" element={<EditarEmpleado />} />
             </Route>
           </Routes>
         </EmpleadosProvider>
