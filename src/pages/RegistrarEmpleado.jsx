@@ -1,25 +1,19 @@
-import React from "react";
-import { useState } from "react";
-import TablaEmpleados from "../components/TablaEmpleados";
+import React from 'react'
 import FormularioEmpleado from '../components/FormularioEmpleado';
 
-
-const AdministrarEmpleados = () => {
-
-  const handleClick = () => {
-    // Redirige a otro componente
-    window.location.href = "http://localhost:5173/scy/admin/registrar"
-    // O redirige a una dirección externa
-  };
+const RegistrarEmpleado = () => {
+    const handleClick = () => {
+        console.log('Holamundo');
+    }
   return (
     <>
-      <div className=" px-2 mb-10">
+    <div className=" px-2 mb-10">
         <h2 id="main" class="text-3xl font-light text-center">
-          Empleados
+          Registrar Empleados
         </h2>
 
         <div class="flex flex-col mt-5">
-          <TablaEmpleados/>
+          <FormularioEmpleado/>
         </div>
         
         
@@ -31,7 +25,7 @@ const AdministrarEmpleados = () => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AdministrarEmpleados;
+export default RegistrarEmpleado

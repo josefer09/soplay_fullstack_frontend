@@ -7,6 +7,7 @@ import RutaProtegida from "./layouts/RutaProtegida";
 import { AuthProvider } from "./context/AuthProvider";
 import HomeLayout from "./layouts/HomeLayout";
 import Home from "./pages/Home";
+import FormularioEmpleado from "./components/FormularioEmpleado";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
           </Route>
           <Route path="/scy/admin" element={<RutaProtegida />}>
             <Route index element={<AdministrarEmpleados />} />
-            <Route path="registrar" element={<Registrar/>}/>
+            <Route path="registrar" element={<FormularioEmpleado/>}/>
+            <Route path="usuarios/registrar" element={<Registrar/>}/>
+            
           </Route>
         </Routes>
       </AuthProvider>
