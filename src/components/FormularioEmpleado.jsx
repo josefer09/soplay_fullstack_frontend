@@ -1,26 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import clienteAxios from "../config/axios"
 import Alerta from "../components/Alerta";
+import useEmpleados from '../hooks/useEmpleados';
 
 
 const FormularioEmpleado = () => {
+
+  const {guardarEmpleado, empleado} = useEmpleados();
+
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [rol, setRol] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
 
   const [alerta, setAlerta] = useState({});
 
+  const navigateTo = useNavigate();
+  useEffect(() => {
+    if(empleado?.nombre) {
+    setNombre(empleado.nombre);
+    setApellido(empleado.apellido);
+    setCorreo(empleado.correo);
+    setTelefono(empleado.telefono);
+    setRol(empleado.rol);
+}
+  }, [empleado])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('click');
     // Validar Formulario
     if ([nombre, apellido, correo, telefono, rol].includes("")) {
       // Hay campos vacios
+      console.log('vacio');
       setAlerta({ msg: "No se permiten campos vacios", error: true });
       return;
     }
@@ -31,7 +48,7 @@ const FormularioEmpleado = () => {
 
     // Crear el usuario
 
-    try {
+    
       // Construccion del objeto
       const empleado = {
         nombre,
@@ -40,23 +57,27 @@ const FormularioEmpleado = () => {
         telefono,
         rol,
       };
-      console.log(usuario);
+      console.log(empleado);
 
-      const {data} = await clienteAxios.post('/empleados', empleado, config);
-      console.log(data);
-      setAlerta({msg: 'Usuario Registrado, Revisa tu email', error: false});
+      guardarEmpleado(empleado);
+      setAlerta({msg: 'Empleado Registrado Viva', error: false});
+
+      setTimeout(() => {
+        //setRedirect(true);
+    setAlerta({});
+    navigateTo('/scy/admin');
+      }, 3000);
       // Usuario Registrado, limpiar form
       // setNombre('');
       // setEmail('');
       // setPassword('');
       // setConfirmarPassword('');
-    } catch (error) {
-      setAlerta({
-        msg: error.response.data.msg,
-        error: true
-      });
-    }
+    return;
   };
+
+  if(redirect) {
+    return <Redirect to="/scy/admin"/>
+  }
 
   const { msg } = alerta;
 

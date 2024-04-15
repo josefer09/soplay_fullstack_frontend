@@ -24,7 +24,6 @@ const Empleado = ({empleado}) => {
                   <p className="text-gray-600">{rol}</p>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                  <a href={`employee-edit.html?id=${_id}`} data-employee={empleado._id} className="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
                   <a href={`employee-edit.html?id=${_id}`} data-employee={_id} className="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
                     <button onClick={() => eliminarEmpleado(empleado)} className="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</button>
                 </td>

@@ -36,7 +36,7 @@ export const EmpleadosProvider = ({ children }) => {
 
 
   const guardarEmpleado = async (empleado) => {
-    // Configuracion para ambos casos
+    // Configuración para la solicitud POST
     const token = localStorage.getItem("token");
     const config = {
       headers: {
@@ -44,31 +44,17 @@ export const EmpleadosProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    
-    if(empleado.id) {
-      try {
-        const { data } = await clienteAxios.put(`/empleados/${empleado.id}`, empleado, config);
-        console.log(data);
-        // Itera sobre nuestro state, busca el que tiene el mismo id que estamos modificando y es el mismo del cual obtenemos la respuesta y entonces sobreescribe el objeto
-        const empleadoActualizado = empleado.map(empleadoState => empleadoState._id === data._id ? data : empleadoState)
-
-        setEmpleados(empleadoActualizado);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      try {
-        const { data } = await clienteAxios.post("/empleados", empleado, config);
-        const { createdAt, updateAt, __v, ...empleadoAlmacenado } = data; // Crea un nuevo objeto sin los datos mencionados previamente
-        setEmpleados([empleadoAlmacenado, ...empleados]);
-        return;
-      } catch (error) {
-        console.log(error.response.data.msg);
-        return;
-      }
+  
+    try {
+      const { data } = await clienteAxios.post("/empleados", empleado, config);
+      const { createdAt, updatedAt, __v, ...empleadoAlmacenado } = data; // Crea un nuevo objeto sin los datos mencionados previamente
+      setEmpleados([empleadoAlmacenado, ...empleados]);
+      console.log("Empleado agregado:", empleadoAlmacenado);
+    } catch (error) {
+      console.log("Error al agregar empleado:", error.response.data.msg);
     }
-    
   };
+  
 
   const setEdicion = (empleado) => {
     setEmpleado(empleado);
@@ -96,6 +82,7 @@ export const EmpleadosProvider = ({ children }) => {
         console.log(data);
         const empleadosActualizados = empleados.filter(empleadoState => empleadoState._id !== _id);
         setEmpleado(empleadosActualizados);
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }
