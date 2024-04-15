@@ -5,6 +5,7 @@ import Empleado from "./Empleado";
 
 const TablaEmpleados = () => {
   console.log(`Hola, aqui hay empleados:${useEmpleados.empleados}`);
+  console.log(`Hola, aqui hay empleado:${useEmpleados.empleado}`);
   const {empleados} = useEmpleados();
   console.log(`Hola, aqui hay empleados:${empleados}`);
 

@@ -8,6 +8,7 @@ const Empleado = ({empleado}) => {
 
     const navigate = useNavigate();
     const handleEditar = () => {
+      setEdicion(empleado);
         navigate(`editar-empleado/${empleado._id}`);
       };
 
@@ -31,7 +32,7 @@ const Empleado = ({empleado}) => {
                   <p className="text-gray-600">{rol}</p>
                 </td>
                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                <button onClick={handleEditar} className="text-green-600 hover:text-green-900 mr-5 eliminar">Editar</button>
+                <button type="button" onClick={handleEditar} className="text-green-600 hover:text-green-900 mr-5 eliminar">Editar</button>
                     <button onClick={() => eliminarEmpleado(empleado)} className="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</button>
                 </td>
               </tr>

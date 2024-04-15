@@ -10,6 +10,7 @@ const FormularioEmpleado = ({empleadoEditar}) => {
 
 
   const {guardarEmpleado, empleado} = useEmpleados();
+  console.log(empleado);
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
