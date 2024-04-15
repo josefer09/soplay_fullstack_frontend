@@ -6,18 +6,17 @@ import Alerta from "../components/Alerta";
 import useEmpleados from '../hooks/useEmpleados';
 
 
-const FormularioEmpleado = ({empleadoEditar}) => {
+const FormularioEmpleado = () => {
 
 
   const {guardarEmpleado, empleado} = useEmpleados();
-  console.log(empleado);
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [rol, setRol] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const [id, setId] =  useState(null);
 
 
   const [alerta, setAlerta] = useState({});
@@ -30,6 +29,7 @@ const FormularioEmpleado = ({empleadoEditar}) => {
     setCorreo(empleado.correo);
     setTelefono(empleado.telefono);
     setRol(empleado.rol);
+    setId(empleado._id);
 }
   }, [empleado])
 
@@ -53,6 +53,7 @@ const FormularioEmpleado = ({empleadoEditar}) => {
     
       // Construccion del objeto
       const empleado = {
+        id,
         nombre,
         apellido,
         correo,
@@ -64,13 +65,14 @@ const FormularioEmpleado = ({empleadoEditar}) => {
       const empleadoRegistrado = await guardarEmpleado(empleado);
       console.log(empleadoRegistrado);
       if(empleadoRegistrado) {
-        setAlerta({msg: 'Empleado Registrado Viva', error: false});
+        setAlerta({msg: 'Empleado Guardado', error: false});
 
         setTimeout(() => {
           //setRedirect(true);
       setAlerta({});
       navigateTo('/scy/admin');
-        }, 3000);
+      //window.location.reload();
+        }, 2000);
         // Usuario Registrado, limpiar form
         // setNombre('');
         // setEmail('');
@@ -83,17 +85,16 @@ const FormularioEmpleado = ({empleadoEditar}) => {
       
   };
 
-  if(redirect) {
-    return <Redirect to="/scy/admin"/>
-  }
+  
 
   const { msg } = alerta;
 
+  const titulo = id? 'Editar Empleado' : 'Registrar Empleado';
   return (
     <>
     <div>
         <h1 className="text-blue-600 font-black text-2xl text-center">
-          Registrar Empleado{" "}
+          {titulo}
         </h1>
       </div>
       <div className="mt-20 md:mt-5 justify-center">
@@ -130,7 +131,7 @@ const FormularioEmpleado = ({empleadoEditar}) => {
               Correo
             </label>
             <input
-              type="text"
+              type="email"
               placeholder="correo"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               value={correo}
@@ -164,7 +165,7 @@ const FormularioEmpleado = ({empleadoEditar}) => {
           <div className="text-center">
           <input
             type="submit"
-            value="Registrate"
+            value={id? 'Actualizar Empleado' : 'Agregar Empleado'}
             className="bg-blue-700 w-full py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-blue-800 md:w-auto"
           />
           </div>

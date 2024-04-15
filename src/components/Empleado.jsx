@@ -9,7 +9,7 @@ const Empleado = ({empleado}) => {
     const navigate = useNavigate();
     const handleEditar = () => {
       setEdicion(empleado);
-        navigate(`editar-empleado/${empleado._id}`);
+        navigate(`registrar`);
       };
 
   return (

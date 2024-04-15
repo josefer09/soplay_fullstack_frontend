@@ -22,7 +22,7 @@ export const EmpleadosProvider = ({ children }) => {
         };
 
         const { data } = await clienteAxios("/empleados", config);
-        console.log(data)
+        console.log(data);
         setEmpleados(data);
         console.log(data);
         return;
@@ -34,9 +34,7 @@ export const EmpleadosProvider = ({ children }) => {
     obtenerEmpleados();
   }, [auth]);
 
-
   const guardarEmpleado = async (empleado) => {
-    // Configuración para la solicitud POST
     const token = localStorage.getItem("token");
     const config = {
       headers: {
@@ -45,30 +43,55 @@ export const EmpleadosProvider = ({ children }) => {
       },
     };
   
-    try {
-      console.log('Validar que no exista ese correo en el provider', empleados);
-      console.log(empleado);
-      const correoExiste = empleados.some(empleadoActual => empleadoActual.correo === empleado.correo)
-      if(correoExiste) {
-        console.log('Existe el correo');
-        return false;
-      } else {
-      const { data } = await clienteAxios.post("/empleados", empleado, config);
-      const { createdAt, updatedAt, __v, ...empleadoAlmacenado } = data; // Crea un nuevo objeto sin los datos mencionados previamente
-      setEmpleados([empleadoAlmacenado, ...empleados]);
-      console.log("Empleado agregado:", empleadoAlmacenado);
-      return true;
-    }} catch (error) {
-      console.log("Error al agregar empleado:", error.response.data.msg);
+    if (empleado.id) {
+      try {
+        const { data } = await clienteAxios.put(
+          `/empleados/${empleado.id}`,
+          empleado,
+          config
+        );
+  
+        const empleadoActualizado = empleados.map((empleadoState) =>
+          empleadoState._id === data._id ? data : empleadoState
+        );
+  
+        setEmpleados(empleadoActualizado);
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const correoExiste = empleados.some(
+          (empleadoActual) => empleadoActual.correo === empleado.correo
+        );
+  
+        if (correoExiste) {
+          console.log("Existe el correo");
+          return false;
+        } else {
+          const { data } = await clienteAxios.post(
+            "/empleados",
+            empleado,
+            config
+          );
+          const { createdAt, updatedAt, __v, ...empleadoAlmacenado } = data; // Crea un nuevo objeto sin los datos mencionados previamente
+          setEmpleados([empleadoAlmacenado, ...empleados]);
+          console.log("Empleado agregado:", empleadoAlmacenado);
+          return true;
+        }
+      } catch (error) {
+        console.log("Error al agregar empleado:", error.response.data.msg);
+      }
     }
   };
   
 
   const setEdicion = (empleado) => {
     setEmpleado(empleado);
-  }
+  };
 
-  const eliminarEmpleado = async empleado => {
+  const eliminarEmpleado = async (empleado) => {
     console.log(empleado);
     // configuracion para ambos casos
     const token = localStorage.getItem("token");
@@ -79,36 +102,38 @@ export const EmpleadosProvider = ({ children }) => {
       },
     };
 
-    const {_id, nombre} = empleado;
+    const { _id, nombre } = empleado;
 
     // Confirmar eliminar
     const confirmar = confirm(`¿Desea Eliminar el Registro de: ${nombre}`);
 
-    if(confirmar) {
+    if (confirmar) {
       try {
-        const {data} = await clienteAxios.delete(`/empleados/${_id}`, config);
+        const { data } = await clienteAxios.delete(`/empleados/${_id}`, config);
         console.log(data);
-        const empleadosActualizados = empleados.filter(empleadoState => empleadoState._id !== _id);
+        const empleadosActualizados = empleados.filter(
+          (empleadoState) => empleadoState._id !== _id
+        );
         setEmpleado(empleadosActualizados);
         window.location.reload();
       } catch (error) {
         console.log(error);
       }
     }
-  }
+  };
 
   return (
-  <EmpleadosContext.Provider 
-  value={{
-    empleados,
-    guardarEmpleado,
-    empleado,
-    setEdicion,
-    eliminarEmpleado,
-  }}
-  >
-    {children}
-  </EmpleadosContext.Provider>
+    <EmpleadosContext.Provider
+      value={{
+        empleados,
+        guardarEmpleado,
+        empleado,
+        setEdicion,
+        eliminarEmpleado,
+      }}
+    >
+      {children}
+    </EmpleadosContext.Provider>
   );
 };
 
