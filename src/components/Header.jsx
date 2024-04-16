@@ -23,8 +23,7 @@ const Header = () => {
           Administra los empleados, cotizaciones y más.
         </p>
         <nav className="mt-8">
-          <a href="/scy/admin/users"
-          class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400">Usuarios</a>
+          
           <a
             href="/scy/admin"
             class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
@@ -36,7 +35,7 @@ const Header = () => {
             >Servicios</a
           >
           <a
-            href="./specialtys.html"
+            href="/scy/admin/cotizaciones"
             className="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
             >Cotizaciones</a
            >

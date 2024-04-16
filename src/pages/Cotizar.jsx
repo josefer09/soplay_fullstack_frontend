@@ -5,8 +5,8 @@ const Cotizar = () => {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Título Aquí</h1>
-        <p className="text-lg">Descripción aquí.</p>
+        <h1 className="text-3xl font-bold mb-4">¡Te ayudamos a cotizar!</h1>
+        <p className="text-lg">Obtén cotizaciones precisas y rápidas para tus proyectos de soldadura plástica aquí.</p>
       </div>
       <div className="grid gap-8 md:grid-cols-2">
         <div>

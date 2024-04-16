@@ -7,6 +7,7 @@ import {
   EditarEmpleado,
   AdministrarServicios,
   Cotizar,
+  AdministrarCotizaciones,
 } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
@@ -53,6 +54,7 @@ function App() {
                     path="servicios/registrar-servicio"
                     element={<FormularioServicio />}
                   />
+                  <Route path="cotizaciones" element={<AdministrarCotizaciones/>}/>
                 </Route>
               </Routes>
             </ServicioProvider>

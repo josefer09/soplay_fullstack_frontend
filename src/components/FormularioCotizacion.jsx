@@ -62,9 +62,9 @@ const FormularioCotizacion = () => {
         nombre_empresa,
         correo,
         telefono,
-        servicio: "661dd21b6507627d113d9a55",
+        servicio,
         descripcion,
-        foto: "maqueta.jpg",
+        foto: "soldadura-manual.jpg",
       };
       console.log(cotizacion);
 
@@ -94,12 +94,6 @@ const FormularioCotizacion = () => {
   const { msg } = alerta;
   return (
     <>
-      <div>
-        <h1 className="text-blue-600 font-black text-2xl text-center">
-          Crea tu Cuenta y Administra{" "}
-          <span className="text-black">tus administradores</span>
-        </h1>
-      </div>
       <div className="mt-20 md:mt-5 flex justify-center">
         <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
           {msg && <Alerta alerta={alerta} />}
@@ -163,7 +157,7 @@ const FormularioCotizacion = () => {
               >
                 <option value="">Selecciona un servicio</option>
                 {listaServicios.map((servicio) => (
-                  <option key={servicio.id} value={servicio.id}>
+                  <option key={servicio._id} value={servicio._id}>
                     {servicio.nombre}
                   </option>
                 ))}
@@ -200,17 +194,6 @@ const FormularioCotizacion = () => {
               />
             </div>
           </form>
-          <nav className="mt-10 lg:flex lg:justify-between">
-            <Link className="block text-center my-5 text-gray-500" to={"/"}>
-              ¿Ya tienes una cuenta? Inicia Sesión
-            </Link>
-            <Link
-              className="block text-center my-5 text-gray-500"
-              to={"/olvide-password"}
-            >
-              Olvide mi Password
-            </Link>
-          </nav>
         </div>
       </div>
     </>
