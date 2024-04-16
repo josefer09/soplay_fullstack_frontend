@@ -5,6 +5,7 @@ import {
   Registrar,
   ConfirmarCuenta,
   EditarEmpleado,
+  AdministrarServicios,
 } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
@@ -15,6 +16,7 @@ import { EmpleadosProvider } from "./context/EmpleadosProvider";
 import HomeLayout from "./layouts/HomeLayout";
 import Home from "./pages/Home";
 import FormularioEmpleado from "./components/FormularioEmpleado";
+import FormularioServicio from "./components/FormularioServicios";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
               <Route path="registrar" element={<FormularioEmpleado />} />
               <Route path="usuarios/registrar" element={<Registrar />} />
               <Route path="editar-empleado/:id" element={<EditarEmpleado />} />
+              <Route path="servicios" element={<AdministrarServicios />} />
+              <Route path="servicios/registrar-servicio" element={<FormularioServicio />} />
             </Route>
           </Routes>
         </EmpleadosProvider>

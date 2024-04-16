@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const Header = () => {
     const {cerrarSesion} = useAuth();
+    const navigate = useNavigate();
+
+    const handleNavigate = (path) => {
+      navigate(path);
+    }
   return (
     <>
       <aside className="md:w-1/4 lg:w-1/5 xl:w-1/6 bg-blue-600 px-5 py-10 flex flex-col justify-between">
@@ -26,8 +31,7 @@ const Header = () => {
             >Empleados</a
           >
           <a
-
-            href="./roles.html"
+          href="/scy/admin/servicios"
             className="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
             >Servicios</a
           >
