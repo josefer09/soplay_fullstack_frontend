@@ -13,6 +13,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import RutaProtegida from "./layouts/RutaProtegida";
 import { AuthProvider } from "./context/AuthProvider";
 import { EmpleadosProvider } from "./context/EmpleadosProvider";
+import { ServicioProvider } from "./context/ServicioProvider";
 import HomeLayout from "./layouts/HomeLayout";
 import Home from "./pages/Home";
 import FormularioEmpleado from "./components/FormularioEmpleado";
@@ -23,7 +24,8 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <EmpleadosProvider>
-          <Routes>
+          <ServicioProvider>
+            <Routes>
             <Route path="/" element={<HomeLayout />}>
               <Route index element={<Home />} />
             </Route>
@@ -40,6 +42,7 @@ function App() {
               <Route path="servicios/registrar-servicio" element={<FormularioServicio />} />
             </Route>
           </Routes>
+          </ServicioProvider>
         </EmpleadosProvider>
       </AuthProvider>
     </BrowserRouter>

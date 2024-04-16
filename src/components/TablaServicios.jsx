@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
-import useEmpleados from "../hooks/useEmpleados";
-import Empleado from "./Empleado";
+import useServicios from "../hooks/useServicios";
+import Servicio from "./Servicio";
 
 const TablaServicios = () => {
-  console.log(`Hola, aqui hay empleados:${useEmpleados.empleados}`);
-  console.log(`Hola, aqui hay empleado:${useEmpleados.empleado}`);
-  const {empleados} = useEmpleados();
-  console.log(`Hola, aqui hay empleados:${empleados}`);
+
+  const {servicios} = useServicios();
 
   return (
     <div className="py-2 overflow-x-auto">
@@ -29,15 +27,15 @@ const TablaServicios = () => {
               </th>
             </tr>
           </thead>
-          {empleados.length ? (
+          {servicios.length ? (
             <>
-            {empleados.map((empleado) => (
-          <Empleado key={empleado._id} empleado={empleado}/>
+            {servicios.map((servicio) => (
+          <Servicio key={servicio._id} servicio={servicio}/>
             ))}
             </>
           ) : (
             <>
-            <h2>No hay empleados</h2>
+            <h2>No hay Servicios</h2>
             </>
           )}
         </table>

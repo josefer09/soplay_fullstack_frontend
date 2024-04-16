@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from "../config/axios"
 import Alerta from "../components/Alerta";
-import useEmpleados from '../hooks/useEmpleados';
+import useServicios from '../hooks/useServicios';
 
 
 const FormularioServicio = () => {
 
 
-  const {guardarEmpleado, empleado} = useEmpleados();
+  const {guardarServicio, servicio} = useServicios();
 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -20,22 +20,21 @@ const FormularioServicio = () => {
   const [alerta, setAlerta] = useState({});
 
   const navigateTo = useNavigate();
+  
   useEffect(() => {
-    if(empleado?.nombre) {
-    setNombre(empleado.nombre);
-    setApellido(empleado.apellido);
-    setCorreo(empleado.correo);
-    setTelefono(empleado.telefono);
-    setRol(empleado.rol);
-    setId(empleado._id);
+    if(servicio?.nombre) {
+    setNombre(servicio.nombre);
+    setDescripcion(servicio.descripcion);
+    setPrecioMin(servicio.precioMin);
+    setId(servicio._id);
 }
-  }, [empleado])
+  }, [servicio])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('click');
     // Validar Formulario
-    if ([nombre, apellido, correo, telefono, rol].includes("")) {
+    if ([nombre, descripcion, precioMin].includes("")) {
       // Hay campos vacios
       console.log('vacio');
       setAlerta({ msg: "No se permiten campos vacios", error: true });
@@ -50,33 +49,35 @@ const FormularioServicio = () => {
 
     
       // Construccion del objeto
-      const empleado = {
+      const servicio = {
         id,
         nombre,
         descripcion,
         precioMin,
       };
-      console.log(empleado);
+      console.log(servicio);
 
-      const empleadoRegistrado = await guardarEmpleado(empleado);
-      console.log(empleadoRegistrado);
-      if(empleadoRegistrado) {
-        setAlerta({msg: 'Empleado Guardado', error: false});
+      const servicioRegistrado = await guardarServicio(servicio);
+      console.log(servicioRegistrado);
+      if(servicioRegistrado) {
+        setAlerta({msg: 'Servicio Guardado', error: false});
 
         setTimeout(() => {
           //setRedirect(true);
       setAlerta({});
-      navigateTo('/scy/admin');
+      navigateTo('/scy/admin/servicios');
       //window.location.reload();
         }, 2000);
         // Usuario Registrado, limpiar form
-        // setNombre('');
+         setNombre('');
+         setDescripcion('');
+         setPrecioMin('');
         // setEmail('');
         // setPassword('');
         // setConfirmarPassword('');
       return;
       }
-      setAlerta({msg: 'Correo registrado, ingrese un correo valido', error: true});
+      setAlerta({msg: 'Servicio ya registrado, ingrese un correo valido', error: true});
 
       
   };

@@ -8,7 +8,7 @@ const AdministrarServicios = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('registrar-servicio');
+    window.location.href = "http://localhost:5173/scy/admin/servicios/registrar-servicio";
   }
   return (
     <>
