@@ -6,6 +6,7 @@ import {
   ConfirmarCuenta,
   EditarEmpleado,
   AdministrarServicios,
+  Cotizar,
 } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
@@ -28,6 +29,7 @@ function App() {
             <Routes>
             <Route path="/" element={<HomeLayout />}>
               <Route index element={<Home />} />
+              <Route path="cotizar" element={<Cotizar />} />
             </Route>
             <Route path="/scy" element={<AuthLayout />}>
               <Route index element={<Login />} />
