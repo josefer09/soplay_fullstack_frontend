@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "./Alerta";
 import clienteAxios from "../config/axios";
+import useCotizacion from "../hooks/useCotizacion";
 
 const FormularioCotizacion = () => {
+  const { guardarCotizacion, cotizacion, obtenerServicios } = useCotizacion();
+
   const [nombre, setNombre] = useState("");
   const [nombre_empresa, setNombre_empresa] = useState("");
   const [correo, setCorreo] = useState("");
@@ -16,25 +19,35 @@ const FormularioCotizacion = () => {
 
   const [alerta, setAlerta] = useState({});
 
+  useEffect(() => {
+    const imprimirServicios = async () => {
+      try {
+        const servicios = await obtenerServicios();
+        setListaServicios(servicios);
+      } catch (error) {
+        console.error("Error al obtener servicios:", error);
+      }
+    };
+
+    imprimirServicios();
+  }, []); // Llamar solo al montar el componente
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validar Formulario
-    if ([nombre, email, password, confirmarPassword].includes("")) {
+    if (
+      [
+        nombre,
+        nombre_empresa,
+        correo,
+        telefono,
+        servicio,
+        descripcion,
+        foto,
+      ].includes("")
+    ) {
       // Hay campos vacios
       setAlerta({ msg: "No se permiten campos vacios", error: true });
-      return;
-    }
-
-    if (password !== confirmarPassword) {
-      setAlerta({ msg: "Las contraseñas no son iguales", error: true });
-      return;
-    }
-
-    if (password.length < 6) {
-      setAlerta({
-        msg: "La contraseña debe ser de minimo 6 caracteres",
-        error: true,
-      });
       return;
     }
 
@@ -44,16 +57,22 @@ const FormularioCotizacion = () => {
 
     try {
       // Construccion del objeto
-      const usuario = {
+      const cotizacion = {
         nombre,
-        email,
-        password,
+        nombre_empresa,
+        correo,
+        telefono,
+        servicio: "661dd21b6507627d113d9a55",
+        descripcion,
+        foto: "maqueta.jpg",
       };
-      console.log(usuario);
+      console.log(cotizacion);
 
-      const { data } = await clienteAxios.post("/usuarios", usuario);
-      console.log(data);
-      setAlerta({ msg: "Usuario Registrado, Revisa tu email", error: false });
+      const cotizacionRegistrada = await guardarCotizacion(cotizacion);
+      if (cotizacionRegistrada) {
+        setAlerta({ msg: "Cotizacion Registrada, te responderemos dentro de las siguientes 24hrs!", error: false });
+        return;
+      }
       // Usuario Registrado, limpiar form
       // setNombre('');
       // setEmail('');
