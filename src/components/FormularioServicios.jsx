@@ -77,7 +77,7 @@ const FormularioServicio = () => {
         // setConfirmarPassword('');
       return;
       }
-      setAlerta({msg: 'Servicio ya registrado, ingrese un correo valido', error: true});
+      setAlerta({msg: 'Servicio ya registrado, ingrese un servicio valido', error: true});
 
       
   };
