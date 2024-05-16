@@ -60,6 +60,12 @@ const HeaderPublic = () => {
               >
                 Nosotros
               </Link>
+              <Link
+                to="/scy"
+                className=" text-white hover:text-yellow-400 block md:inline-block md:text-center mx-5"
+              >
+                Empleados
+              </Link>
           </nav>
       </header>
     </>

@@ -9,6 +9,7 @@ import {
   Cotizar,
   AdministrarCotizaciones,
   Servicios,
+  Nosotros,
 } from "./pages";
 //import Login from './pages/Login';
 //import AdministrarEmpleados from './pages/AdministrarEmpleados';
@@ -35,6 +36,7 @@ function App() {
                   <Route index element={<Home />} />
                   <Route path="cotizar" element={<Cotizar />} />
                   <Route path="servicios" element={<Servicios/>}/>
+                  <Route path="nosotros" element={<Nosotros/>}/>
                 </Route>
                 <Route path="/scy" element={<AuthLayout />}>
                   <Route index element={<Login />} />

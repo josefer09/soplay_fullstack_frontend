@@ -7,3 +7,4 @@ export {default as AdministrarServicios} from './AdministrarServicios';
 export {default as Cotizar} from './Cotizar';
 export {default as AdministrarCotizaciones} from './AdministrarCotizaciones';
 export {default as Servicios} from './Servicios';
+export {default as Nosotros} from './Nosotros';
