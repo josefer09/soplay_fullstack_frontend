@@ -32,59 +32,57 @@ const FormularioCotizacion = () => {
     imprimirServicios();
   }, []); // Llamar solo al montar el componente
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Validar Formulario
-    if (
-      [
-        nombre,
-        nombre_empresa,
-        correo,
-        telefono,
-        servicio,
-        descripcion,
-        foto,
-      ].includes("")
-    ) {
-      // Hay campos vacios
-      setAlerta({ msg: "No se permiten campos vacios", error: true });
+  // En el componente FormularioCotizacion
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  // Validar Formulario
+  if (
+    [
+      nombre,
+      nombre_empresa,
+      correo,
+      telefono,
+      servicio,
+      descripcion,
+      foto // Asegúrate de incluir la foto en la validación
+    ].includes("")
+  ) {
+    // Hay campos vacíos
+    setAlerta({ msg: "No se permiten campos vacíos", error: true });
+    return;
+  }
+  console.log(foto);
+
+  setAlerta({});
+
+  // Crear la cotización
+  try {
+    // Construcción del objeto FormData
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('nombre_empresa', nombre_empresa);
+    formData.append('correo', correo);
+    formData.append('telefono', telefono);
+    formData.append('servicio', servicio);
+    formData.append('descripcion', descripcion);
+    formData.append('foto', foto.name);
+    formData.append('fotoFile', foto); // Asegúrate de incluir la foto como un archivo
+
+    const cotizacionRegistrada = await guardarCotizacion(formData); // Envía el formData en lugar del objeto cotizacion
+    if (cotizacionRegistrada) {
+      setAlerta({ msg: "Cotización registrada, te responderemos dentro de las siguientes 24 horas!", error: false });
       return;
     }
+  } catch (error) {
+    setAlerta({
+      msg: error.response.data.msg,
+      error: true,
+    });
+  }
+};
 
-    setAlerta({});
+// Mantén el handleImagenChange sin cambios
 
-    // Crear el usuario
-
-    try {
-      // Construccion del objeto
-      const cotizacion = {
-        nombre,
-        nombre_empresa,
-        correo,
-        telefono,
-        servicio,
-        descripcion,
-        foto: "soldadura-manual.jpg",
-      };
-      console.log(cotizacion);
-
-      const cotizacionRegistrada = await guardarCotizacion(cotizacion);
-      if (cotizacionRegistrada) {
-        setAlerta({ msg: "Cotizacion Registrada, te responderemos dentro de las siguientes 24hrs!", error: false });
-        return;
-      }
-      // Usuario Registrado, limpiar form
-      // setNombre('');
-      // setEmail('');
-      // setPassword('');
-      // setConfirmarPassword('');
-    } catch (error) {
-      setAlerta({
-        msg: error.response.data.msg,
-        error: true,
-      });
-    }
-  };
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0]; // Obtener el archivo seleccionado
